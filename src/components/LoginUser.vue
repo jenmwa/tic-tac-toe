@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { Player } from '../models/Player'
+import GameBoard from './GameBoard.vue';
 
 const playerName = ref('');
 
@@ -14,27 +15,44 @@ const createUser = () => {
   if(players.value.length === 0) {
     console.log('create user X:', playerName.value);
     players.value = [
-      new Player(playerName.value, 'X', true, false, 0)
-    ]
+      ...players.value,
+      new Player(playerName.value, 'X')
+    ];
     currentUserSymbol = 'O';
     console.log(players)
   } else {
     console.log('create user O:', playerName.value);
     players.value.push(
-      new Player(playerName.value, '0', true, false, 0)
+      new Player(playerName.value, '0')
     )
     console.log(players);
 
-    if(players.value.length ===2) {
+    if (players.value.length ===2) {
       console.log('userlist full, lets play!');
-      localStorage.setItem('players', JSON.stringify(players));
+      // localStorage.setItem('players', JSON.stringify(players));
       userListFull.value = true;
+      assignActiveUser();
     }
   } 
   playerName.value = '';
 }
 
-console.log('userlist full, lets play!')
+const assignActiveUser = () => {
+  const randomPlayer = Math.floor(Math.random() * players.value.length);
+  players.value.forEach((player, index) => {
+    player.active = index === randomPlayer;
+    console.log( player.name ,'is active: ', player.active)
+  })
+}
+
+
+onMounted(() => {
+  const storedPlayers = localStorage.getItem('players');
+  if(storedPlayers) {
+    players.value = JSON.parse(storedPlayers);
+    userListFull.value = true;
+  }
+});
 </script>
 
 <template>
@@ -46,6 +64,7 @@ console.log('userlist full, lets play!')
   </label>
   <button @click="createUser">Let's play</button>
 </section>
+<GameBoard v-else :players="players"></GameBoard>
 
 </template>
 
