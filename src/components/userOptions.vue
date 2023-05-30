@@ -1,27 +1,29 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 
 const newgameBtn = () => {
-    console.log('staaaaaart over please!')
+  console.log('staaaaaart over please!')
 }
 
 const highscoreBtn = () => {
-    console.log('lets do a modal with all of them highscore!')
+  console.log('lets do a modal with all of them highscore!')
 }
 
 const resetBtn = () => {
-    console.log('reset all!!!!!!');
-    localStorage.removeItem('players')
+  console.log('reset all!!!!!!');
+  localStorage.removeItem('players');
+  // players.value = [];
+  // userListFull.value = false;
 }
 
 </script>
 
 <template>
-    <div>
-        <button @click="newgameBtn">NEW GAME</button>
-        <button @click="highscoreBtn">HIGHSCORE</button>
-        <button @click="resetBtn">RESET</button>
-    </div>
-
+  <div>
+    <button @click="newgameBtn">NEW GAME</button>
+    <button @click="highscoreBtn">HIGHSCORE</button>
+    <button @click="resetBtn">RESET</button>
+  </div>
 </template>
 
 <style scoped lang="scss">
