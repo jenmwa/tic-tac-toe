@@ -8,6 +8,7 @@
 
 <style scoped lang="scss">
 .square-btn {
+  border: 2px solid darkslategrey;
 width: 10rem;
 height: 10rem;
 background: none;
