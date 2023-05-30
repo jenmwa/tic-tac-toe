@@ -3,12 +3,12 @@
 </script>
 
 <template>
-  <button class="square-btn">X or O</button>
+  <button class="square-btn"></button>
 </template>
 
 <style scoped lang="scss">
 .square-btn {
-  border: 2px solid darkslategrey;
+border: 2px solid darkslategrey;
 width: 10rem;
 height: 10rem;
 background: none;
@@ -22,9 +22,7 @@ font-weight: 700;
     outline: none;
     background-color: lightgrey;
   }
-.clicked {
-  background-color: green;
-}
+
 }
 
 </style>

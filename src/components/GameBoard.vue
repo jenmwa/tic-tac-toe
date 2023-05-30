@@ -1,17 +1,71 @@
 
 <script setup lang="ts">
 import GameSquare from './GameSquare.vue';
+import UserOptions from './UserOptions.vue';
+import { Player } from '../models/Player';
+import { ref,computed } from 'vue';
+
+
+const activePlayerName = ref('');
+const activePlayerSymbol = ref('');
+
+const props = defineProps({
+  players: {
+    type: Array as () => Player[],
+    default: () => [], 
+  }
+});
+
+console.log(props.players);
 
 const squareClicked = (index: number) => {
-    console.log('clicked on square', index )
+  console.log('clicked on square', index );
+
+  // props.players.forEach((player, index) => {
+  // console.log(player.name);
+// }
+// )
+;
+  props.players.forEach((player) => {
+    player.active = !player.active;
+    console.log(player.name ,'(', player.userSymbol,') is active:', player.active)
+  })
+  //trigga class clicked
+  //player.active toggla
 }
+
+
+// const toggleActiveUser = () => {
+  // props.players.forEach((player) => {
+  //   player.active = !player.active;
+  //   console.log(player.name ,'(', player.userSymbol,') is active:', player.active)
+  // })
+// }
+
+const activePlayerInfo = computed(() => {
+  const activePlayer = props.players.find((player) => player.active);
+  if (activePlayer) {
+    return `${activePlayer.name} (${activePlayer.userSymbol}) is active: ${activePlayer.active}`;
+  }
+  return '';
+});
+// const activePlayer = computed(() => {
+//   return props.players.find(player => player.active) || null;
+// });
+
+//OM useractive
 
 </script>
 
 <template>
+  <h2>TIC-TAC-TOE</h2>
+  <h3> {{ players[0].name }} vs {{ players[1].name }}</h3>
+  <p v-html="activePlayerInfo"></p>
+  <!-- <p v-if="activePlayer">It's {{ activePlayerSymbol }} ( {{ activePlayerName }} ) turn:</p> -->
   <div class="game-board">
-    <GameSquare v-for="index in 9" :id="index" :key="index" @click="squareClicked(index)"/>
+    <GameSquare v-for="index in 9" :id="index" :key="index" @click="squareClicked(index)" ></GameSquare>
   </div>
+  <UserOptions></UserOptions>
 </template>
   
 <style scoped>
@@ -19,6 +73,10 @@ const squareClicked = (index: number) => {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
+  }
+
+  h3 {
+    font-size: 3rem;
   }
 
   .clicked {
