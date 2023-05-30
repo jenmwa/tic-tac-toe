@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import GameBoard from './components/GameBoard.vue';
+
 import LoginUser from './components/LoginUser.vue';
-import UserOptions from './components/userOptions.vue';
+
 // import HelloWorld from './components/HelloWorld.vue'
 </script>
 
 <template>
   <LoginUser></LoginUser>
-  <GameBoard></GameBoard>
-  <UserOptions></UserOptions>
+  <!-- <GameBoard></GameBoard>
+  <userOptions></userOptions> -->
   <!-- <div>
     <a href="https://vitejs.dev" target="_blank">
       <img src="/vite.svg" class="logo" alt="Vite logo" />
