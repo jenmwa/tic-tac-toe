@@ -41,6 +41,7 @@ div {
     flex-direction: column;
     align-items: center;
     margin-block: 1rem;
+    margin-bottom: 7rem;
 }
 
 button {

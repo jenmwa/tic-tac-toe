@@ -1,0 +1,33 @@
+<script setup lang="ts">
+
+
+
+</script>
+
+<template>
+<footer>
+    <p>Created in Vue.js, TypeScript, Vite & Sass</p>
+    <p>Copyright &copy; 2023 by Jen Waller</p>
+    <p>GITHUB</p>
+</footer>
+
+
+</template>
+
+<style scoped lang="scss">
+footer {
+    background-color: darkslategray;
+    padding: 8pxrem;
+    color: whitesmoke;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+
+    p {
+        line-height: 1;
+    }
+}
+
+
+</style>

@@ -66,12 +66,14 @@ const resetGame = () => {
 </script>
 
 <template>
+  <section class="game">
   <h3 v-if="players.length !== 0"> {{ players[0].name }} vs {{ players[1].name }}</h3>
   <p v-html="activePlayerInfo"></p>
   <!-- <p v-if="activePlayer">It's {{ activePlayerSymbol }} ( {{ activePlayerName }} ) turn:</p> -->
   <div class="game-board">
     <GameSquare v-for="index in 9" :id="index" :key="index" @click="squareClicked(index)" ></GameSquare>
   </div>
+</section>
   <UserOptions @reset="resetGame" :players="players"></UserOptions>
 </template>
   
