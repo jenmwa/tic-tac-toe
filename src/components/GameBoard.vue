@@ -21,27 +21,12 @@ console.log(players.value);
 
 const squareClicked = (index: number) => {
   console.log('clicked on square', index );
-
-  // props.players.forEach((player, index) => {
-  // console.log(player.name);
-// }
-// )
 ;
   props.players.forEach((player) => {
     player.active = !player.active;
     console.log(player.name ,'(', player.userSymbol,') is active:', player.active)
   })
-  //trigga class clicked
-  //player.active toggla
 }
-
-
-// const toggleActiveUser = () => {
-  // props.players.forEach((player) => {
-  //   player.active = !player.active;
-  //   console.log(player.name ,'(', player.userSymbol,') is active:', player.active)
-  // })
-// }
 
 const activePlayerInfo = computed(() => {
   const activePlayer = props.players.find((player) => player.active);
@@ -50,17 +35,12 @@ const activePlayerInfo = computed(() => {
   }
   return '';
 });
-// const activePlayer = computed(() => {
-//   return props.players.find(player => player.active) || null;
-// });
+
 const emit = defineEmits(['reset']);
-//OM useractive
+
 const resetGame = () => {
   console.log('remove player-list')
-  // players.value = [];
-  // console.log(players.value)
   emit('reset');
-  // sessionStorage.removeItem('movies');
 };
 
 </script>
@@ -71,7 +51,7 @@ const resetGame = () => {
   <p v-html="activePlayerInfo"></p>
   <!-- <p v-if="activePlayer">It's {{ activePlayerSymbol }} ( {{ activePlayerName }} ) turn:</p> -->
   <div class="game-board">
-    <GameSquare v-for="index in 9" :id="index" :key="index" @click="squareClicked(index)" ></GameSquare>
+    <GameSquare v-for="index in 9" :id="index" :key="index" @click="squareClicked(index)" :squareClicked="squareClicked" ></GameSquare>
   </div>
 </section>
   <UserOptions @reset="resetGame" :players="players"></UserOptions>

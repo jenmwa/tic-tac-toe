@@ -17,7 +17,6 @@
 <style scoped lang="scss">
 footer {
     background-color: darkslategray;
-    padding: 8pxrem;
     color: whitesmoke;
     position: absolute;
     bottom: 0;
