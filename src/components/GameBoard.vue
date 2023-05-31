@@ -4,7 +4,7 @@ import GameSquare from './GameSquare.vue';
 import UserOptions from './UserOptions.vue';
 import { Player } from '../models/Player';
 import { IGame } from '../models/IGame';
-import { ref,computed } from 'vue';
+import { ref,computed, onMounted } from 'vue';
 
 const props = defineProps({
   players: {
@@ -15,17 +15,34 @@ const props = defineProps({
 
 const gameSquares = ref<IGame[]>([]);
 
+onMounted(() => {
+  for (let i = 1; i <= 9; i++) {
+    gameSquares.value.push({
+      id: i,
+      clicked: false,
+      userSymbol: '',
+    });
+  }
+});
 
 const players = ref(props.players);
 console.log(players.value);
 
-const squareClicked = (index: number) => {
-  console.log('clicked on square', index );
-  props.players.forEach((player) => {
-    player.active = !player.active;
-    console.log(player.name ,'(', player.userSymbol,') is active:', player.active)
-  })
+const squareClicked = (id: number) => {
+  const activePlayer = props.players.find((player) => player.active);
+  console.log(activePlayer?.name, 'clicked on square', id );
+
+  if (activePlayer) {
+    gameSquares.value[id - 1].clicked = true;
+    gameSquares.value[id - 1].userSymbol = activePlayer.userSymbol;
+
+    props.players.forEach((player) => {
+      player.active = !player.active;
+    })
+  }
 }
+
+console.log(gameSquares)
 
 const activePlayerInfo = computed(() => {
   const activePlayer = props.players.find((player) => player.active);
@@ -38,7 +55,7 @@ const activePlayerInfo = computed(() => {
 const emit = defineEmits(['reset']);
 
 const resetGame = () => {
-  console.log('remove player-list')
+  console.log('remove player-list from Gameboard-comp')
   emit('reset');
 };
 
@@ -50,7 +67,14 @@ const resetGame = () => {
   <p v-html="activePlayerInfo"></p>
   <!-- <p v-if="activePlayer">It's {{ activePlayerSymbol }} ( {{ activePlayerName }} ) turn:</p> -->
   <div class="game-board">
-    <GameSquare v-for="index in 9" :id="index" :key="index" @click="squareClicked(index)" :squareClicked="squareClicked" ></GameSquare>
+    <GameSquare 
+      v-for="gameSquare in gameSquares" 
+      :id="gameSquare.id" 
+      :key="gameSquare.id"
+      :clicked="gameSquare.clicked"
+      :userSymbol="gameSquare.userSymbol"
+      @click="squareClicked(gameSquare.id)" 
+    ></GameSquare>
   </div>
 </section>
   <UserOptions @reset="resetGame" :players="players"></UserOptions>
