@@ -10,8 +10,11 @@ const props = defineProps({
   players: {
     type: Array as () => Player[],
     default: () => [], 
-  }
+  },
 });
+
+const players = ref(props.players);
+console.log(players.value);
 
 const gameSquares = ref<IGame[]>([]);
 
@@ -24,9 +27,6 @@ onMounted(() => {
     });
   }
 });
-
-const players = ref(props.players);
-console.log(players.value);
 
 const squareClicked = (id: number) => {
   const activePlayer = props.players.find((player) => player.active);
@@ -48,8 +48,12 @@ const activePlayerInfo = computed(() => {
   const isGameComplete = gameSquares.value.every((square) => square.clicked);
   if (isGameComplete) {
     console.log('game is over!');
+    //if there is a winner
     return 'GAME IS OVER, namn (symbol) won!';
+    //else if there is oavgjort?
+    //return 'PRETTY TIED UP? go again?';
   }
+
   const activePlayer = props.players.find((player) => player.active);
   if (activePlayer) {
     return `It's ${activePlayer.name} (${activePlayer.userSymbol}) turn!`;
@@ -57,13 +61,20 @@ const activePlayerInfo = computed(() => {
   return '';
 });
 
-const emit = defineEmits(['reset']);
+const emit = defineEmits(['reset', 'reset-square']);
 
 const resetGame = () => {
   emit('reset');
 };
 
-
+const newGame = () => {
+  console.log('click start new Game from Gameboard-comp')
+    gameSquares.value.forEach((square) => {
+    square.clicked = false;
+    square.userSymbol = '';
+  });
+  console.log(gameSquares, 'and please remove css class in gameSquare!')
+}
 
 </script>
 
@@ -79,11 +90,11 @@ const resetGame = () => {
         :key="gameSquare.id"
         :clicked="gameSquare.clicked"
         :userSymbol="gameSquare.userSymbol"
-        @click="squareClicked(gameSquare.id)" 
+        @click="squareClicked(gameSquare.id)"
       ></GameSquare>
     </div>
   </section>
-  <UserOptions @reset="resetGame"  :players="players"></UserOptions>
+  <UserOptions @reset="resetGame" @newGame="newGame" :players="players"></UserOptions>
 </template>
   
 <style scoped>

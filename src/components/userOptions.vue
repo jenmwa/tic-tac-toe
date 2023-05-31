@@ -11,6 +11,7 @@ const emits = defineEmits<{
 
 const newgameBtn = () => {
   console.log('staaaaaart over please!');
+  
   emits('newGame');
 }
 

@@ -5,13 +5,16 @@ const props = defineProps({
   // activePlayerInfo: {
   //   type: Object,
   // },
+  newGame: {
+    type: Function,
+  },
   squareClicked: {
     type: Function,
   },
   // clicked: Boolean,
   userSymbol: String
 })
-
+console.log(props.newGame, 'newGame?')
 let isClicked = ref(false);
 
 const handleClick = () => {
