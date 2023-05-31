@@ -53,12 +53,13 @@ const activePlayerInfo = computed(() => {
 // const activePlayer = computed(() => {
 //   return props.players.find(player => player.active) || null;
 // });
-
+const emit = defineEmits(['reset']);
 //OM useractive
 const resetGame = () => {
   console.log('remove player-list')
-  players.value = [];
-  console.log(players.value)
+  // players.value = [];
+  // console.log(players.value)
+  emit('reset');
   // sessionStorage.removeItem('movies');
 };
 

@@ -45,6 +45,12 @@ const assignActiveUser = () => {
   })
 }
 
+const resetGame = () => {
+  console.log('reset game');
+  players.value = [];
+  userListFull.value = false;
+};
+
 
 onMounted(() => {
   const storedPlayers = localStorage.getItem('players');
@@ -64,7 +70,7 @@ onMounted(() => {
   </label>
   <button @click="createUser">Let's play</button>
 </section>
-<GameBoard v-else :players="players"></GameBoard>
+<GameBoard v-else :players="players" @reset="resetGame"></GameBoard>
 
 </template>
 
