@@ -7,13 +7,14 @@ const props = defineProps({
   // },
   squareClicked: {
     type: Function,
-  }
+  },
+  // clicked: Boolean,
+  userSymbol: String
 })
 
 let isClicked = ref(false);
 
 const handleClick = () => {
-  console.log('user clicked, this log is from the GameSquareComponent')
   if(!isClicked.value) {
     isClicked.value = true;
   }
@@ -22,7 +23,11 @@ const handleClick = () => {
 </script>
 
 <template>
-  <button class="square-btn" @click="handleClick" :disabled="isClicked" :class="{ 'clicked' : isClicked}"> </button>
+  <button class="square-btn" 
+  @click="handleClick" 
+  :disabled="isClicked" 
+  :class="{ 'clicked' : isClicked}"
+  > {{ userSymbol }} </button>
 </template>
 
 <style scoped lang="scss">
@@ -43,5 +48,9 @@ font-weight: 700;
   }
 
 }
-
+.clicked {
+    background-color: lightgreen;
+    color: #1b1b1b;
+    font-size: 4rem;
+  }
 </style>

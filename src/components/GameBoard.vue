@@ -38,13 +38,18 @@ const squareClicked = (id: number) => {
 
     props.players.forEach((player) => {
       player.active = !player.active;
-    })
+    });
   }
 }
 
 console.log(gameSquares)
 
 const activePlayerInfo = computed(() => {
+  const isGameComplete = gameSquares.value.every((square) => square.clicked);
+  if (isGameComplete) {
+    console.log('game is over!');
+    return 'GAME IS OVER, namn (symbol) won!';
+  }
   const activePlayer = props.players.find((player) => player.active);
   if (activePlayer) {
     return `It's ${activePlayer.name} (${activePlayer.userSymbol}) turn!`;
@@ -55,29 +60,30 @@ const activePlayerInfo = computed(() => {
 const emit = defineEmits(['reset']);
 
 const resetGame = () => {
-  console.log('remove player-list from Gameboard-comp')
   emit('reset');
 };
+
+
 
 </script>
 
 <template>
   <section class="game">
-  <h3 v-if="players.length !== 0"> {{ players[0].name }} vs {{ players[1].name }}</h3>
-  <p v-html="activePlayerInfo"></p>
-  <!-- <p v-if="activePlayer">It's {{ activePlayerSymbol }} ( {{ activePlayerName }} ) turn:</p> -->
-  <div class="game-board">
-    <GameSquare 
-      v-for="gameSquare in gameSquares" 
-      :id="gameSquare.id" 
-      :key="gameSquare.id"
-      :clicked="gameSquare.clicked"
-      :userSymbol="gameSquare.userSymbol"
-      @click="squareClicked(gameSquare.id)" 
-    ></GameSquare>
-  </div>
-</section>
-  <UserOptions @reset="resetGame" :players="players"></UserOptions>
+    <h3 v-if="players.length !== 0"> {{ players[0].name }} vs {{ players[1].name }}</h3>
+    <p v-html="activePlayerInfo"></p>
+    <p class="winner-tag"></p>
+    <div class="game-board">
+      <GameSquare 
+        v-for="gameSquare in gameSquares" 
+        :id="gameSquare.id" 
+        :key="gameSquare.id"
+        :clicked="gameSquare.clicked"
+        :userSymbol="gameSquare.userSymbol"
+        @click="squareClicked(gameSquare.id)" 
+      ></GameSquare>
+    </div>
+  </section>
+  <UserOptions @reset="resetGame"  :players="players"></UserOptions>
 </template>
   
 <style scoped>
@@ -91,7 +97,5 @@ const resetGame = () => {
     font-size: 3rem;
   }
 
-  .clicked {
-    background-color: lightgreen;
-  }
+
 </style>

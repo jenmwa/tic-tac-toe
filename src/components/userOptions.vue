@@ -5,11 +5,13 @@ import { Player } from '../models/Player';
 
 const emits = defineEmits<{
   // (e: 'search', searchText:string): void;
-  (e: 'reset') :void;
+  (e: 'reset') :void,
+  (e: 'newGame') :void;
 }>();
 
 const newgameBtn = () => {
-  console.log('staaaaaart over please!')
+  console.log('staaaaaart over please!');
+  emits('newGame');
 }
 
 const highscoreBtn = () => {
