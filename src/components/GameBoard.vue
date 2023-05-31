@@ -46,7 +46,7 @@ const squareClicked = (index: number) => {
 const activePlayerInfo = computed(() => {
   const activePlayer = props.players.find((player) => player.active);
   if (activePlayer) {
-    return `${activePlayer.name} (${activePlayer.userSymbol}) is active: ${activePlayer.active}`;
+    return `It's ${activePlayer.name} (${activePlayer.userSymbol}) turn!`;
   }
   return '';
 });

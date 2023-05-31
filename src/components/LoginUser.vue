@@ -87,13 +87,22 @@ margin-bottom: 2rem;
 input {
   padding: 0.5rem;
   border: 2px solid darkslategrey;
+  width: 175px;
 }
 
 button {
   width: 175px;
-  height: 35px;
+  height: 36px;
   border: 2px solid darkslategrey;
   border-radius: 4px;
+  margin-left: 1rem;
+  border-radius: 0;
+  cursor: pointer;
+
+  &:hover {
+    font-weight: bold;
+    color: #1b1b1b
+  }
 }
 
 </style>
