@@ -3,11 +3,8 @@
 import GameSquare from './GameSquare.vue';
 import UserOptions from './UserOptions.vue';
 import { Player } from '../models/Player';
+import { IGame } from '../models/IGame';
 import { ref,computed } from 'vue';
-
-
-const activePlayerName = ref('');
-const activePlayerSymbol = ref('');
 
 const props = defineProps({
   players: {
@@ -16,12 +13,14 @@ const props = defineProps({
   }
 });
 
+const gameSquares = ref<IGame[]>([]);
+
+
 const players = ref(props.players);
 console.log(players.value);
 
 const squareClicked = (index: number) => {
   console.log('clicked on square', index );
-;
   props.players.forEach((player) => {
     player.active = !player.active;
     console.log(player.name ,'(', player.userSymbol,') is active:', player.active)

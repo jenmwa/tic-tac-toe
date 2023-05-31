@@ -2,8 +2,11 @@
 import { ref } from 'vue';
 
 const props = defineProps({
+  // activePlayerInfo: {
+  //   type: Object,
+  // },
   squareClicked: {
-    type: Function
+    type: Function,
   }
 })
 
@@ -19,7 +22,7 @@ const handleClick = () => {
 </script>
 
 <template>
-  <button class="square-btn" @click="handleClick" :disabled="isClicked" :class="{ 'clicked' : isClicked}"></button>
+  <button class="square-btn" @click="handleClick" :disabled="isClicked" :class="{ 'clicked' : isClicked}"> </button>
 </template>
 
 <style scoped lang="scss">
