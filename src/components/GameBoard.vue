@@ -58,7 +58,6 @@ const activePlayerInfo = computed(() => {
 </script>
 
 <template>
-  <h2>TIC-TAC-TOE</h2>
   <h3> {{ players[0].name }} vs {{ players[1].name }}</h3>
   <p v-html="activePlayerInfo"></p>
   <!-- <p v-if="activePlayer">It's {{ activePlayerSymbol }} ( {{ activePlayerName }} ) turn:</p> -->
