@@ -1,5 +1,12 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import { Player } from '../models/Player';
+
+
+const emits = defineEmits<{
+  // (e: 'search', searchText:string): void;
+  (e: 'reset') :void;
+}>();
 
 const newgameBtn = () => {
   console.log('staaaaaart over please!')
@@ -12,7 +19,8 @@ const highscoreBtn = () => {
 const resetBtn = () => {
   console.log('reset all!!!!!!');
   localStorage.removeItem('players');
-  // players.value = [];
+  emits('reset');
+  // props.players.value = [];
   // userListFull.value = false;
 }
 

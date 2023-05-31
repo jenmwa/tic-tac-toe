@@ -16,7 +16,8 @@ const props = defineProps({
   }
 });
 
-console.log(props.players);
+const players = ref(props.players);
+console.log(players.value);
 
 const squareClicked = (index: number) => {
   console.log('clicked on square', index );
@@ -54,17 +55,23 @@ const activePlayerInfo = computed(() => {
 // });
 
 //OM useractive
+const resetGame = () => {
+  console.log('remove player-list')
+  players.value = [];
+  console.log(players.value)
+  // sessionStorage.removeItem('movies');
+};
 
 </script>
 
 <template>
-  <h3> {{ players[0].name }} vs {{ players[1].name }}</h3>
+  <h3 v-if="players.length !== 0"> {{ players[0].name }} vs {{ players[1].name }}</h3>
   <p v-html="activePlayerInfo"></p>
   <!-- <p v-if="activePlayer">It's {{ activePlayerSymbol }} ( {{ activePlayerName }} ) turn:</p> -->
   <div class="game-board">
     <GameSquare v-for="index in 9" :id="index" :key="index" @click="squareClicked(index)" ></GameSquare>
   </div>
-  <UserOptions></UserOptions>
+  <UserOptions @reset="resetGame" :players="players"></UserOptions>
 </template>
   
 <style scoped>
