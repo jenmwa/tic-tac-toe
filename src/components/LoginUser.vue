@@ -12,6 +12,9 @@ const players = ref<Player[]>([]);
 const userListFull = ref(false);
 
 const createUser = () => {
+  if(playerName.value === '') {
+    return;
+  }
   if(players.value.length === 0) {
     console.log('create user X:', playerName.value);
     players.value = [
@@ -62,16 +65,14 @@ onMounted(() => {
 </script>
 
 <template>
-
 <section v-if="!userListFull" class="login">
   <label for="user">
     name for user <span>{{ currentUserSymbol }}</span>:<br>
     <input type="text" id="user" placeholder='Type your name here' v-model="playerName" @keydown.enter="createUser">
   </label>
-  <button @click="createUser">Let's play</button>
+  <button @click="createUser" :disabled="playerName === ''">Let's play</button>
 </section>
 <GameBoard v-else :players="players" @reset="resetGame"></GameBoard>
-
 </template>
 
 <style scoped lang="scss">
