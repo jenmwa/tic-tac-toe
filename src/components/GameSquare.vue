@@ -2,13 +2,17 @@
 import { ref } from 'vue';
 
 const props = defineProps({
-  clicked: Boolean,
-  userSymbol: String,
-  isClicked: {
-    type: Boolean,
-    default: false,
+  // activePlayerInfo: {
+  //   type: Object,
+  // },
+  // newGame: {
+  //   type: Function,
+  // },
+  squareClicked: {
+    type: Function,
   },
-  squareClicked: Function,
+  // clicked: Boolean,
+  userSymbol: String
 })
 // console.log(props.newGame, 'newGame?')
 let isClicked = ref(false);
@@ -16,17 +20,17 @@ let isClicked = ref(false);
 const handleClick = () => {
   if(!isClicked.value) {
     isClicked.value = true;
+    console.log('handleclick in gamesquare')
   }
 }
 
 </script>
 
 <template>
-  <button 
-  class="square-btn" 
+  <button class="square-btn" 
   @click="handleClick" 
-  :disabled="props.isClicked" 
-  :class="{ 'clicked' :props.isClicked }"
+  :disabled="isClicked" 
+  :class="{ 'clicked' : isClicked}"
   > {{ userSymbol }} </button>
 </template>
 
@@ -48,5 +52,9 @@ font-weight: 700;
   }
 
 }
-
+.clicked {
+    background-color: lightgreen;
+    color: #1b1b1b;
+    font-size: 4rem;
+  }
 </style>

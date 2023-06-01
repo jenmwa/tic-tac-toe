@@ -61,7 +61,7 @@ const activePlayerInfo = computed(() => {
   return '';
 });
 
-const emit = defineEmits(['reset', 'update:isClicked']);
+const emit = defineEmits(['reset', 'newGame']);
 
 const resetGame = () => {
   emit('reset');
@@ -76,7 +76,7 @@ const newGame = () => {
     console.log('isclicked is: ', isClicked.value)
   });
   // gameSquares.value = [...gameSquares.value];
-  emit('update:isClicked', false);
+
   console.log(gameSquares.value, 'and please remove css class in gameSquare!')
 }
 const isClicked = ref(false);
@@ -95,7 +95,6 @@ const isClicked = ref(false);
         :key="gameSquare.id"
         :clicked="gameSquare.clicked"
         :userSymbol="gameSquare.userSymbol"
-        :isClicked.sync="isClicked"
         @click="squareClicked(gameSquare.id)"
       ></GameSquare>
     </div>
@@ -114,10 +113,5 @@ const isClicked = ref(false);
     font-size: 3rem;
   }
 
-  .clicked {
-    background-color: lightgreen;
-    color: #1b1b1b;
-    font-size: 4rem;
-  }
 
 </style>
