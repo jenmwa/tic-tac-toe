@@ -2,19 +2,15 @@
 import { ref } from 'vue';
 
 const props = defineProps({
-  // activePlayerInfo: {
-  //   type: Object,
-  // },
-  newGame: {
-    type: Function,
+  clicked: Boolean,
+  userSymbol: String,
+  isClicked: {
+    type: Boolean,
+    default: false,
   },
-  squareClicked: {
-    type: Function,
-  },
-  // clicked: Boolean,
-  userSymbol: String
+  squareClicked: Function,
 })
-console.log(props.newGame, 'newGame?')
+// console.log(props.newGame, 'newGame?')
 let isClicked = ref(false);
 
 const handleClick = () => {
@@ -26,10 +22,11 @@ const handleClick = () => {
 </script>
 
 <template>
-  <button class="square-btn" 
+  <button 
+  class="square-btn" 
   @click="handleClick" 
-  :disabled="isClicked" 
-  :class="{ 'clicked' : isClicked}"
+  :disabled="props.isClicked" 
+  :class="{ 'clicked' :props.isClicked }"
   > {{ userSymbol }} </button>
 </template>
 
@@ -51,9 +48,5 @@ font-weight: 700;
   }
 
 }
-.clicked {
-    background-color: lightgreen;
-    color: #1b1b1b;
-    font-size: 4rem;
-  }
+
 </style>

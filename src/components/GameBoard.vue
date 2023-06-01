@@ -61,7 +61,7 @@ const activePlayerInfo = computed(() => {
   return '';
 });
 
-const emit = defineEmits(['reset', 'reset-square']);
+const emit = defineEmits(['reset', 'update:isClicked']);
 
 const resetGame = () => {
   emit('reset');
@@ -72,9 +72,14 @@ const newGame = () => {
     gameSquares.value.forEach((square) => {
     square.clicked = false;
     square.userSymbol = '';
+    isClicked.value = false;
+    console.log('isclicked is: ', isClicked.value)
   });
-  console.log(gameSquares, 'and please remove css class in gameSquare!')
+  // gameSquares.value = [...gameSquares.value];
+  emit('update:isClicked', false);
+  console.log(gameSquares.value, 'and please remove css class in gameSquare!')
 }
+const isClicked = ref(false);
 
 </script>
 
@@ -90,11 +95,12 @@ const newGame = () => {
         :key="gameSquare.id"
         :clicked="gameSquare.clicked"
         :userSymbol="gameSquare.userSymbol"
+        :isClicked.sync="isClicked"
         @click="squareClicked(gameSquare.id)"
       ></GameSquare>
     </div>
   </section>
-  <UserOptions @reset="resetGame" @newGame="newGame" :players="players"></UserOptions>
+  <UserOptions  @reset="resetGame" @newGame="newGame" :players="players"></UserOptions>
 </template>
   
 <style scoped>
@@ -108,5 +114,10 @@ const newGame = () => {
     font-size: 3rem;
   }
 
+  .clicked {
+    background-color: lightgreen;
+    color: #1b1b1b;
+    font-size: 4rem;
+  }
 
 </style>
