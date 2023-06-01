@@ -24,6 +24,7 @@ onMounted(() => {
       id: i,
       clicked: false,
       userSymbol: '',
+      isDisabled: false,
     });
   }
 });
@@ -32,9 +33,12 @@ const squareClicked = (id: number) => {
   const activePlayer = props.players.find((player) => player.active);
   console.log(activePlayer?.name, 'clicked on square', id );
 
-  if (activePlayer) {
-    gameSquares.value[id - 1].clicked = true;
-    gameSquares.value[id - 1].userSymbol = activePlayer.userSymbol;
+  const gameSquare = gameSquares.value[id - 1];
+
+  if (activePlayer && !gameSquare.clicked) {
+    gameSquare.clicked = true;
+    gameSquare.userSymbol = activePlayer.userSymbol;
+    gameSquare.isDisabled = true; 
 
     props.players.forEach((player) => {
       player.active = !player.active;
@@ -67,19 +71,44 @@ const resetGame = () => {
   emit('reset');
 };
 
+const isDisabled = ref(false);
+const isClicked = ref(false);
+
 const newGame = () => {
   console.log('click start new Game from Gameboard-comp')
     gameSquares.value.forEach((square) => {
     square.clicked = false;
     square.userSymbol = '';
     isClicked.value = false;
-    console.log('isclicked is: ', isClicked.value)
   });
-  // gameSquares.value = [...gameSquares.value];
-
-  console.log(gameSquares.value, 'and please remove css class in gameSquare!')
+  console.log('isclicked is: ', isClicked.value)
+  gameSquares.value = [...gameSquares.value];
+  isDisabled.value = false;
+  isClicked.value = false;
 }
-const isClicked = ref(false);
+
+// from react
+//facit är rutans id
+// const calculateWinner = (gameSquare) => {
+//   const lines = [
+//     [1, 2, 3],
+//     [4, 5, 6],
+//     [7, 8, 9],
+//     [1, 4, 7],
+//     [2, 5, 8],
+//     [3, 6, 9],
+//     [1, 5, 9],
+//     [3, 5, 7],
+//   ];
+//   for (let i = 0; i < lines.length; i++) {
+//     const [a, b, c] = lines[i];
+//     if (gameSquare[a] && gameSquare[a] === gameSquare[b] && gameSquare[a] === gameSquare[c]) {
+//       return gameSquare[a];
+//     }
+//   }
+//   return null;
+// }
+
 
 </script>
 
@@ -96,6 +125,7 @@ const isClicked = ref(false);
         :clicked="gameSquare.clicked"
         :userSymbol="gameSquare.userSymbol"
         @click="squareClicked(gameSquare.id)"
+        :class="{ clicked: gameSquare.clicked }"
       ></GameSquare>
     </div>
   </section>
@@ -111,6 +141,12 @@ const isClicked = ref(false);
 
   h3 {
     font-size: 3rem;
+  }
+
+  .clicked {
+    background-color: lightgreen;
+    color: #1b1b1b;
+    font-size: 4rem;
   }
 
 

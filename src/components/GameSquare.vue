@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue';
 
 const props = defineProps({
   // activePlayerInfo: {
@@ -8,29 +7,29 @@ const props = defineProps({
   // newGame: {
   //   type: Function,
   // },
-  squareClicked: {
-    type: Function,
-  },
+
+  // squareClicked: {
+  //   // type: Function,
+  // },
   // clicked: Boolean,
   userSymbol: String
 })
 // console.log(props.newGame, 'newGame?')
-let isClicked = ref(false);
+// let isClicked = ref(false);
 
-const handleClick = () => {
-  if(!isClicked.value) {
-    isClicked.value = true;
-    console.log('handleclick in gamesquare')
-  }
-}
+// const handleClick = () => {
+//   if(!isClicked.value) {
+//     isClicked.value = true;
+//     console.log('handleclick in gamesquare')
+    
+//   }
+// }
 
 </script>
 
 <template>
   <button class="square-btn" 
-  @click="handleClick" 
-  :disabled="isClicked" 
-  :class="{ 'clicked' : isClicked}"
+
   > {{ userSymbol }} </button>
 </template>
 
@@ -48,13 +47,13 @@ font-weight: 700;
 
   &:focus {
     outline: none;
-    background-color: lightgrey;
+    // background-color: lightgrey;
   }
 
 }
-.clicked {
-    background-color: lightgreen;
-    color: #1b1b1b;
-    font-size: 4rem;
-  }
+// .clicked {
+//     background-color: lightgreen;
+//     color: #1b1b1b;
+//     font-size: 4rem;
+//   }
 </style>
