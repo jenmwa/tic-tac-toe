@@ -17,9 +17,14 @@ const players = ref(props.players);
 console.log(players.value);
 
 const gameSquares = ref<IGame[]>([]);
+const gameOver = ref(false);
+let isDisabled = ref(false);
+const isClicked = ref(false);
+let winnerMessage = ref('');
+
 
 onMounted(() => {
-  for (let i = 1; i <= 9; i++) {
+  for (let i = 0; i <= 8; i++) {
     gameSquares.value.push({
       id: i,
       clicked: false,
@@ -29,11 +34,14 @@ onMounted(() => {
   }
 });
 
+
+
+
 const squareClicked = (id: number) => {
   const activePlayer = props.players.find((player) => player.active);
   console.log(activePlayer?.name, 'clicked on square', id );
 
-  const gameSquare = gameSquares.value[id - 1];
+  const gameSquare = gameSquares.value[id];
 
   if (activePlayer && !gameSquare.clicked) {
     gameSquare.clicked = true;
@@ -43,7 +51,20 @@ const squareClicked = (id: number) => {
     props.players.forEach((player) => {
       player.active = !player.active;
     });
+
+    const winner = calculateWinner();
+
+    if (winner) {
+      console.log('game is over!');
+      gameOver.value = true;
+      gameSquares.value.forEach((square) => {
+        square.isDisabled = true;
+      });
+      winnerMessage.value = `${winner} is the winner!`;
+      console.log('Winner:', winner);
+    } 
   }
+  // console.log('tied up? try again!')
 }
 
 console.log(gameSquares)
@@ -52,27 +73,54 @@ const activePlayerInfo = computed(() => {
   const isGameComplete = gameSquares.value.every((square) => square.clicked);
   if (isGameComplete) {
     console.log('game is over!');
-    //if there is a winner
-    return 'GAME IS OVER, namn (symbol) won!';
+    return 'Pretty tied up? Try again!';
     //else if there is oavgjort?
-    //return 'PRETTY TIED UP? go again?';
   }
-
   const activePlayer = props.players.find((player) => player.active);
   if (activePlayer) {
     return `It's ${activePlayer.name} (${activePlayer.userSymbol}) turn!`;
   }
-  return '';
+  return winnerMessage.value;
 });
 
-const emit = defineEmits(['reset', 'newGame']);
+const calculateWinner = (): string | null => {
+    const lines = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8],
+      [2, 4, 6],
+    ];
+    for (const line of lines) {
+    const [a, b, c] = line;
+    const squareA = gameSquares.value[a];
+    const squareB = gameSquares.value[b];
+    const squareC = gameSquares.value[c];
+
+    if (
+      squareA.clicked &&
+      squareA.userSymbol === squareB.userSymbol &&
+      squareA.userSymbol === squareC.userSymbol
+    ) {
+      console.log(squareA.userSymbol, 'is the winner!')
+      //skicka 1p till player.points
+      //skriv ut i DOM att spelare "userSymbol" won
+      return squareA.userSymbol; 
+    }
+  }
+   //return 'PRETTY TIED UP? go again?';
+  return null; 
+};
+
+const emit = defineEmits(['reset']);
 
 const resetGame = () => {
   emit('reset');
+  
 };
-
-const isDisabled = ref(false);
-const isClicked = ref(false);
 
 const newGame = () => {
   console.log('click start new Game from Gameboard-comp')
@@ -80,43 +128,22 @@ const newGame = () => {
     square.clicked = false;
     square.userSymbol = '';
     isClicked.value = false;
+    square.isDisabled = false;
   });
   console.log('isclicked is: ', isClicked.value)
   gameSquares.value = [...gameSquares.value];
   isDisabled.value = false;
   isClicked.value = false;
-}
-
-// from react
-//facit är rutans id
-// const calculateWinner = (gameSquare) => {
-//   const lines = [
-//     [1, 2, 3],
-//     [4, 5, 6],
-//     [7, 8, 9],
-//     [1, 4, 7],
-//     [2, 5, 8],
-//     [3, 6, 9],
-//     [1, 5, 9],
-//     [3, 5, 7],
-//   ];
-//   for (let i = 0; i < lines.length; i++) {
-//     const [a, b, c] = lines[i];
-//     if (gameSquare[a] && gameSquare[a] === gameSquare[b] && gameSquare[a] === gameSquare[c]) {
-//       return gameSquare[a];
-//     }
-//   }
-//   return null;
-// }
-
+  winnerMessage.value = '';
+};
 
 </script>
 
 <template>
   <section class="game">
     <h3 v-if="players.length !== 0"> {{ players[0].name }} vs {{ players[1].name }}</h3>
-    <p v-html="activePlayerInfo"></p>
-    <p class="winner-tag"></p>
+    <p v-if="!winnerMessage" v-html="activePlayerInfo"></p>
+    <p v-else class="winner-tag">{{ winnerMessage }}</p>
     <div class="game-board">
       <GameSquare 
         v-for="gameSquare in gameSquares" 
@@ -125,7 +152,8 @@ const newGame = () => {
         :clicked="gameSquare.clicked"
         :userSymbol="gameSquare.userSymbol"
         @click="squareClicked(gameSquare.id)"
-        :class="{ clicked: gameSquare.clicked }"
+        :class="{ clicked: gameSquare.clicked, winner: calculateWinner() === gameSquare.userSymbol }"
+        :disabled="gameSquare.isDisabled"
       ></GameSquare>
     </div>
   </section>
