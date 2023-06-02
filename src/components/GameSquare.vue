@@ -1,29 +1,8 @@
 <script setup lang="ts">
 
-const props = defineProps({
-  // activePlayerInfo: {
-  //   type: Object,
-  // },
-  // newGame: {
-  //   type: Function,
-  // },
-
-  // squareClicked: {
-  //   // type: Function,
-  // },
-  // clicked: Boolean,
+defineProps({
   userSymbol: String
 })
-// console.log(props.newGame, 'newGame?')
-// let isClicked = ref(false);
-
-// const handleClick = () => {
-//   if(!isClicked.value) {
-//     isClicked.value = true;
-//     console.log('handleclick in gamesquare')
-    
-//   }
-// }
 
 </script>
 
@@ -42,18 +21,11 @@ background: none;
 font-weight: 700;
 
   &:hover {
-      cursor: pointer;
-    }
-
-  &:focus {
-    outline: none;
-    // background-color: lightgrey;
+    cursor: pointer;
   }
 
+  &:focus {
+    outline: 2px solid rgb(95, 201, 201);
+  }
 }
-// .clicked {
-//     background-color: lightgreen;
-//     color: #1b1b1b;
-//     font-size: 4rem;
-//   }
 </style>
