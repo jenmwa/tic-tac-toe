@@ -1,7 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { Player } from '../models/Player';
+import HighscoreComponent from './HighscoreComponent.vue'
 
+defineProps({
+  players: {
+    type: Array as () => Player[],
+  },
+});
 
 const emits = defineEmits<{
   // (e: 'search', searchText:string): void;
@@ -15,9 +21,16 @@ const newgameBtn = () => {
   emits('newGame');
 }
 
+const showHighscore = ref(false);
+
 const highscoreBtn = () => {
   console.log('lets do a modal with all of them highscore!')
+  showHighscore.value = true;
 }
+
+const closeHighscore = () => {
+  showHighscore.value = false;
+};
 
 const resetBtn = () => {
   console.log('reset all!!!!!!');
@@ -35,6 +48,7 @@ const resetBtn = () => {
     <button @click="highscoreBtn">HIGHSCORE</button>
     <button @click="resetBtn">RESET</button>
   </div>
+  <HighscoreComponent v-if="showHighscore" @close="closeHighscore"></HighscoreComponent>
 </template>
 
 <style scoped lang="scss">

@@ -186,9 +186,9 @@ const newGame = () => {
     margin-bottom: 1rem;
   }
 
-  .player-info {
-    /** */
-  }
+  /* .player-info {
+    
+  } */
 
   .bold {
     font-weight: bold;
