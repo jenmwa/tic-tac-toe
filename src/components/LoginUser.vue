@@ -52,6 +52,7 @@ const resetGame = () => {
   console.log('reset game');
   players.value = [];
   userListFull.value = false;
+  currentUserSymbol = 'X';
   //empty localStorage/sessionStorage
 };
 
