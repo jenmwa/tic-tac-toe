@@ -153,9 +153,9 @@ const newGame = () => {
 <template>
   <section class="game">
     <h3 v-if="players.length !== 0"> {{ players[0].name }} <span class="vs">vs</span> {{ players[1].name }}</h3>
-    <p class="player-info">
-      <span class="bold">{{players[0].name}}</span> is symbol  <span class="bold">{{players[0].userSymbol}}</span> and have  <span class="bold">{{players[0].points}} points</span>.<br>
-      <span class="bold">{{players[1].name}}</span> is symbol  <span class="bold">{{players[1].userSymbol}}</span> and have  <span class="bold">{{players[1].points}} points</span>.</p>
+    <p class="player-info" v-for="player in players" key="player.name">
+      <span class="bold">{{player.name}}</span> is symbol  <span class="bold">{{player.userSymbol}}</span> and have  <span class="bold">{{player.points}} points</span>.<br>
+    </p>
     <p v-if="!winnerMessage" v-html="activePlayerInfo"></p>
     <p v-else class="winner-tag">{{ winnerMessage }}</p>
     <div class="game-board">
