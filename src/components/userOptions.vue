@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang='ts'>
 import { ref } from 'vue';
 import { Player } from '../models/Player';
 import HighscoreComponent from './HighscoreComponent.vue'
@@ -14,16 +14,13 @@ const emits = defineEmits<{
   (e: 'newGame') :void;
 }>();
 
-const newgameBtn = () => {
-  console.log('staaaaaart over please!');
-  
+const newgameBtn = () => {  
   emits('newGame');
 }
 
 const showHighscore = ref(false);
 
 const highscoreBtn = () => {
-  console.log('lets do a modal with all of them highscore!')
   showHighscore.value = true;
 }
 
@@ -32,7 +29,6 @@ const closeHighscore = () => {
 };
 
 const resetBtn = () => {
-  console.log('reset all!!!!!!');
   emits('reset');
 }
 
@@ -63,6 +59,7 @@ button {
   border: 2px solid darkslategrey;
   border-radius: 4px;
   margin-bottom: 1rem;
+  cursor: pointer;
 }
 
 </style>

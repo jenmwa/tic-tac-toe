@@ -1,14 +1,12 @@
 <script setup lang="ts">
 
-
-
 </script>
 
 <template>
 <footer>
-    <p>Created in Vue.js, TypeScript, Vite & Sass</p>
-    <p>Copyright &copy; 2023 by Jen Waller</p>
-    <p>GITHUB</p>
+  <p>Created in Vue.js, TypeScript, Vite & Sass</p>
+  <p>Copyright &copy; 2023 by Jen Waller</p>
+  <!-- <p>link to GITHUB</p> -->
 </footer>
 
 

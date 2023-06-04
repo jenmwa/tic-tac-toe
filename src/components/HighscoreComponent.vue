@@ -9,7 +9,6 @@ const props = defineProps({
 });
 
 const players = ref(props.players);
-console.log(players.value);
 
 const emits = defineEmits<{
   (e: 'close') : void,

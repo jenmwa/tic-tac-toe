@@ -1,5 +1,5 @@
 
-<script setup lang="ts">
+<script setup lang='ts'>
 import GameSquare from './GameSquare.vue';
 import UserOptions from './UserOptions.vue';
 import { Player } from '../models/Player';
@@ -65,12 +65,9 @@ const squareClicked = (id: number) => {
   }
 }
 
-console.log(gameSquares)
-
 const activePlayerInfo = computed(() => {
   const isGameComplete = gameSquares.value.every((square) => square.clicked);
   if (isGameComplete) {
-    console.log('game is over!');
     return 'Pretty tied up? Try again!';
   }
 
@@ -117,7 +114,6 @@ const calculateHighscores = () => {
 
   if(winnerSymbol) {
     const winningPlayer = players.value.find((player) => player.userSymbol === winnerSymbol);
-    console.log('hej från highscore')
 
     if(winningPlayer) {
       winningPlayer.points +=1;
@@ -134,14 +130,12 @@ const resetGame = () => {
 };
 
 const newGame = () => {
-  console.log('click start new Game from Gameboard-comp')
-    gameSquares.value.forEach((square) => {
+  gameSquares.value.forEach((square) => {
     square.clicked = false;
     square.userSymbol = '';
     isClicked.value = false;
     square.isDisabled = false;
   });
-  console.log('isclicked is: ', isClicked.value)
   gameSquares.value = [...gameSquares.value];
   isDisabled.value = false;
   isClicked.value = false;
@@ -151,7 +145,7 @@ const newGame = () => {
 </script>
 
 <template>
-  <section v-if="players.length > 0" class="game">
+  <section class="game">
     <h3 v-if="players.length !== 0"> {{ players[0].name }} <span class="vs">vs</span> {{ players[1].name }}</h3>
     <p class="player-info" v-for="player in players" key="player.name">
       <p class="players"><span class="bold">{{player.name}}</span> is symbol  <span class="bold">{{player.userSymbol}}</span> and have  <span class="bold">{{player.points}} points</span>.</p>
@@ -171,7 +165,7 @@ const newGame = () => {
       ></GameSquare>
     </div>
   </section>
-  <UserOptions  @reset="resetGame" @newGame="newGame" :players="players"></UserOptions>
+  <UserOptions @reset="resetGame" @newGame="newGame" :players="players"></UserOptions>
 </template>
   
 <style scoped>

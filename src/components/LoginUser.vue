@@ -1,5 +1,5 @@
-<script setup lang="ts">
-import { onMounted, ref } from 'vue';
+<script setup lang='ts'>
+import { ref } from 'vue';
 import { Player } from '../models/Player'
 import GameBoard from './GameBoard.vue';
 import gameImg from '/public/game.svg';
@@ -7,6 +7,9 @@ import gameImg from '/public/game.svg';
 const playerName = ref('');
 let currentUserSymbol = 'X';
 const players = ref<Player[]>([]);
+// const players = ref<Player[]>(
+//   JSON.parse(localStorage.getItem('players') || '[]')
+//   );
 const userListFull = ref(false);
 
 const createUser = () => {
@@ -14,22 +17,17 @@ const createUser = () => {
     return;
   }
   if(players.value.length === 0) {
-    console.log('create user X:', playerName.value);
     players.value = [
       ...players.value,
       new Player(playerName.value, 'X')
     ];
     currentUserSymbol = 'O';
-    console.log(players)
   } else {
-    console.log('create user O:', playerName.value);
     players.value.push(
       new Player(playerName.value, '0')
     )
-    console.log(players);
 
     if (players.value.length ===2) {
-      console.log('userlist full, lets play!');
       // localStorage.setItem('players', JSON.stringify(players));
       userListFull.value = true;
       assignActiveUser();
@@ -42,23 +40,21 @@ const assignActiveUser = () => {
   const randomPlayer = Math.floor(Math.random() * players.value.length);
   players.value.forEach((player, index) => {
     player.active = index === randomPlayer;
-    console.log( player.name ,'is active: ', player.active)
   })
 }
 
 const resetGame = () => {
-  console.log('reset game');
   players.value = [];
   userListFull.value = false;
   currentUserSymbol = 'X';
-  // localStorage.removeItem('players')
+  // localStorage.removeItem('players');
 };
 
 </script>
 
 <template>
 <section v-if="!userListFull" class="login">
-  <img v-bind:src="gameImg"/>
+  <img v-bind:src="gameImg"  alt="a tic-tac-toe board where user O has 3-in-a-row"/>
   <h2>Let's Play!</h2>
 <div class="login-wrapper">
   <label for="user">
