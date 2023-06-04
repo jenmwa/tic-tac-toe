@@ -48,7 +48,7 @@ const resetBtn = () => {
     <button @click="highscoreBtn">HIGHSCORE</button>
     <button @click="resetBtn">RESET</button>
   </div>
-  <HighscoreComponent v-if="showHighscore" @close="closeHighscore"></HighscoreComponent>
+  <HighscoreComponent v-if="showHighscore" @close="closeHighscore" :players="players"></HighscoreComponent>
 </template>
 
 <style scoped lang="scss">
