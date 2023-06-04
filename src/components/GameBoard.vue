@@ -24,11 +24,6 @@ let winnerMessage = ref('');
 
 
 onMounted(() => {
-  const storedPlayers = localStorage.getItem('players');
-  if (storedPlayers) {
-    players.value = JSON.parse(storedPlayers);
-  }
-
   for (let i = 0; i <= 8; i++) {
     gameSquares.value.push({
       id: i,
