@@ -55,17 +55,9 @@ const resetGame = () => {
   players.value = [];
   userListFull.value = false;
   currentUserSymbol = 'X';
-  //empty localStorage/sessionStorage
+  // localStorage.removeItem('players')
 };
 
-
-onMounted(() => {
-  const storedPlayers = localStorage.getItem('players');
-  if(storedPlayers) {
-    players.value = JSON.parse(storedPlayers);
-    userListFull.value = true;
-  }
-});
 </script>
 
 <template>
@@ -91,11 +83,12 @@ flex-direction: column;
 justify-content: center;
 // justify-content: space-between;
 // align-items: end;
-margin-bottom: 2rem;
+margin-top: 0;
+margin-bottom: 5rem;
 
-img {
-  margin-bottom: 2rem;
-}
+  img {
+    margin-bottom: 2rem;
+  }
 }
 
 .input-wrapper {

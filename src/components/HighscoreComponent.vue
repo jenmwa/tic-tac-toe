@@ -57,7 +57,7 @@ const sortedPlayers = computed(() => {
 
   span {
     font-weight: bold;
-  color: darkslategray}
+    color: darkslategray}
 }
 
 button {

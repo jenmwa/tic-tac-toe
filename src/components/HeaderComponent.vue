@@ -14,6 +14,7 @@ nav {
 }
 h2 {
   text-align: center;
+  margin-top: 0;
 }
 
 

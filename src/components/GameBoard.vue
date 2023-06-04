@@ -24,6 +24,11 @@ let winnerMessage = ref('');
 
 
 onMounted(() => {
+  const storedPlayers = localStorage.getItem('players');
+  if (storedPlayers) {
+    players.value = JSON.parse(storedPlayers);
+  }
+
   for (let i = 0; i <= 8; i++) {
     gameSquares.value.push({
       id: i,
@@ -151,10 +156,10 @@ const newGame = () => {
 </script>
 
 <template>
-  <section class="game">
+  <section v-if="players.length > 0" class="game">
     <h3 v-if="players.length !== 0"> {{ players[0].name }} <span class="vs">vs</span> {{ players[1].name }}</h3>
     <p class="player-info" v-for="player in players" key="player.name">
-      <span class="bold">{{player.name}}</span> is symbol  <span class="bold">{{player.userSymbol}}</span> and have  <span class="bold">{{player.points}} points</span>.<br>
+      <p class="players"><span class="bold">{{player.name}}</span> is symbol  <span class="bold">{{player.userSymbol}}</span> and have  <span class="bold">{{player.points}} points</span>.</p>
     </p>
     <p v-if="!winnerMessage" v-html="activePlayerInfo"></p>
     <p v-else class="winner-tag">{{ winnerMessage }}</p>
@@ -179,16 +184,24 @@ const newGame = () => {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
+    max-width: 360px;
+    margin: 0 auto;
   }
 
   h3 {
     font-size: 3rem;
     margin-bottom: 1rem;
+    margin-top: 0;
   }
 
-  /* .player-info {
-    
-  } */
+  p {
+    margin-bottom: 2rem;
+  }
+
+  .players {
+   margin: 0;
+   line-height: 0.2;
+  }
 
   .bold {
     font-weight: bold;

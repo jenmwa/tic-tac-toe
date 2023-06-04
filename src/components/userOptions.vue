@@ -10,7 +10,6 @@ defineProps({
 });
 
 const emits = defineEmits<{
-  // (e: 'search', searchText:string): void;
   (e: 'reset') :void,
   (e: 'newGame') :void;
 }>();
@@ -34,10 +33,7 @@ const closeHighscore = () => {
 
 const resetBtn = () => {
   console.log('reset all!!!!!!');
-  localStorage.removeItem('players');
   emits('reset');
-  // props.players.value = [];
-  // userListFull.value = false;
 }
 
 </script>
@@ -54,11 +50,11 @@ const resetBtn = () => {
 <style scoped lang="scss">
 
 div {
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    margin-block: 1rem;
-    margin-bottom: 7rem;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  margin-block: 1rem;
+  margin-bottom: 7rem;
 }
 
 button {

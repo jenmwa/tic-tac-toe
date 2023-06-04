@@ -7,16 +7,14 @@ defineProps({
 </script>
 
 <template>
-  <button class="square-btn" 
-
-  > {{ userSymbol }} </button>
+  <button class="square-btn"> {{ userSymbol }} </button>
 </template>
 
 <style scoped lang="scss">
 .square-btn {
 border: 2px solid darkslategrey;
-width: 10rem;
-height: 10rem;
+width: 120px;
+height: 120px;
 background: none;
 font-weight: 700;
 

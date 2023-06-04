@@ -16,16 +16,17 @@
 
 <style scoped lang="scss">
 footer {
-    background-color: darkslategray;
-    color: whitesmoke;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
+  background-color: darkslategray;
+  color: whitesmoke;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
 
-    p {
-        line-height: 1;
-    }
+p {
+font-size: 0.75rem;
+line-height: 1;
+}
 }
 
 
