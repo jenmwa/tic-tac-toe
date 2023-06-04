@@ -2,6 +2,8 @@
 import { onMounted, ref } from 'vue';
 import { Player } from '../models/Player'
 import GameBoard from './GameBoard.vue';
+import gameImg from '/public/game.svg';
+
 
 const playerName = ref('');
 
@@ -68,11 +70,15 @@ onMounted(() => {
 
 <template>
 <section v-if="!userListFull" class="login">
+  <img v-bind:src="gameImg"/>
+  <h2>Let's Play!</h2>
+<div class="login-wrapper">
   <label for="user">
     name for user <span>{{ currentUserSymbol }}</span>:<br>
     <input type="text" id="user" placeholder='Type your name here' v-model="playerName" @keydown.enter="createUser">
   </label>
   <button @click="createUser" :disabled="playerName === ''">Let's play</button>
+</div>
 </section>
 <GameBoard v-else :players="players" @reset="resetGame"></GameBoard>
 </template>
@@ -81,11 +87,20 @@ onMounted(() => {
 .login {
 text-align: left;
 display: flex;
-justify-content: space-between;
-align-items: end;
+flex-direction: column;
+justify-content: center;
+// justify-content: space-between;
+// align-items: end;
 margin-bottom: 2rem;
+
+img {
+  margin-bottom: 2rem;
+}
 }
 
+.input-wrapper {
+  padding-top: 2rem;
+}
 input {
   padding: 0.5rem;
   border: 2px solid darkslategrey;

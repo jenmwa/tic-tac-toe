@@ -1,7 +1,5 @@
 <script setup lang="ts">
 
-
-
 </script>
 
 <template>
@@ -12,13 +10,11 @@
 
 <style scoped lang="scss">
 nav {
-  display: flex;
-  justify-content: center;
+  margin-bottom: 2rem;;
 }
 h2 {
-  position: absolute;
-  top: 0;
-
+  text-align: center;
 }
+
 
 </style>
