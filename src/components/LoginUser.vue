@@ -4,13 +4,9 @@ import { Player } from '../models/Player'
 import GameBoard from './GameBoard.vue';
 import gameImg from '/public/game.svg';
 
-
 const playerName = ref('');
-
 let currentUserSymbol = 'X';
-
 const players = ref<Player[]>([]);
-
 const userListFull = ref(false);
 
 const createUser = () => {
@@ -81,8 +77,6 @@ text-align: left;
 display: flex;
 flex-direction: column;
 justify-content: center;
-// justify-content: space-between;
-// align-items: end;
 margin-top: 0;
 margin-bottom: 5rem;
 
