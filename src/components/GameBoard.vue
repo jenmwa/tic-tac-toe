@@ -1,7 +1,7 @@
 
 <script setup lang='ts'>
 import GameSquare from './GameSquare.vue';
-import UserOptions from './UserOptions.vue';
+import UserOption from './UserOption.vue';
 import { Player } from '../models/Player';
 import { IGame } from '../models/IGame';
 import { ref,computed, onMounted } from 'vue';
@@ -165,7 +165,7 @@ const newGame = () => {
       ></GameSquare>
     </div>
   </section>
-  <UserOptions @reset="resetGame" @newGame="newGame" :players="players"></UserOptions>
+  <UserOption @reset="resetGame" @newGame="newGame" :players="players"></UserOption>
 </template>
   
 <style scoped>
