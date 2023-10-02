@@ -53,6 +53,7 @@
     align-items: center;
     margin-block: 1rem;
     margin-bottom: 7rem;
+    margin-top: 0;
   }
 
   button {
