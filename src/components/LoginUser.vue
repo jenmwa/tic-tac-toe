@@ -6,10 +6,10 @@ import gameImg from '/public/game.svg';
 
 const playerName = ref('');
 let currentUserSymbol = 'X';
-const players = ref<Player[]>([]);
-// const players = ref<Player[]>(
-//   JSON.parse(localStorage.getItem('players') || '[]')
-//   );
+// const players = ref<Player[]>([]);
+const players = ref<Player[]>(
+  JSON.parse(localStorage.getItem('players') || '[]')
+  );
 const userListFull = ref(false);
 
 const createUser = () => {
@@ -28,7 +28,7 @@ const createUser = () => {
     )
 
     if (players.value.length ===2) {
-      // localStorage.setItem('players', JSON.stringify(players));
+      localStorage.setItem('players', JSON.stringify(players));
       userListFull.value = true;
       assignActiveUser();
     }
@@ -47,7 +47,7 @@ const resetGame = () => {
   players.value = [];
   userListFull.value = false;
   currentUserSymbol = 'X';
-  // localStorage.removeItem('players');
+  localStorage.removeItem('players');
 };
 
 </script>
