@@ -165,7 +165,7 @@ const newGame = () => {
       ></GameSquare>
     </div>
   </section>
-
+  <UserOptions @reset="resetGame" @newGame="newGame" :players="players"></UserOptions>
 </template>
   
 <style scoped>
